@@ -111,7 +111,7 @@ CesiumIonImageLayer::Options::fromConfig(const Config& conf)
 }
 
 std::string
-CesiumIonImageLayer::Options::getMetadata()
+CesiumIonImageLayer::Options::getMetadata() const
 {
     return R"%( {
         "name": "CesiumIonImage",

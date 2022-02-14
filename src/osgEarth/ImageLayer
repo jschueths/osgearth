@@ -81,8 +81,8 @@ namespace osgEarth
             OE_OPTION(bool, async);
             OE_OPTION(std::string, shareTexUniformName);
             OE_OPTION(std::string, shareTexMatUniformName);
-            virtual Config getConfig() const;
-            static std::string getMetadata();
+            virtual Config getConfig() const override;
+            virtual std::string getMetadata() const override;
         private:
             void fromConfig( const Config& conf );
         };

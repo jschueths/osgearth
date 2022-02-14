@@ -194,8 +194,8 @@ namespace osgEarth
             OE_OPTION(ProxySettings, proxySettings);
             OE_OPTION(std::string, osgOptionString);
             OE_OPTION(unsigned int, l2CacheSize);
-            static std::string getMetadata();
-            virtual Config getConfig() const;
+            virtual std::string getMetadata() const;
+            virtual Config getConfig() const override;
         private:
             void fromConfig(const Config& conf);
         };
@@ -392,6 +392,9 @@ namespace osgEarth
 
         //! Creates a layer from serialized data - internal use
         static Layer* create(const ConfigOptions& options);
+
+        //! Creates a layer from its slug name
+        static Layer* create(const std::string& slug);
 
         //! Extracts config options from a DB options - internal use
         static const ConfigOptions& getConfigOptions(const osgDB::Options*);

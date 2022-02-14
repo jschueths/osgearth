@@ -76,23 +76,23 @@ TileLayer::Options::fromConfig(const Config& conf)
 }
 
 std::string
-TileLayer::Options::getMetadata()
+TileLayer::Options::getMetadata() const
 {
     return R"%( {
         "name" : "TileLayer",
         "description" : "Base class for layers that generate tiled data",
         "properties": [
-            { "name": "min_level", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "max_level", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "min_resolution", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "max_resolution", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "max_data_level", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "tile_size", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "profile", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "no_data_value", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "min_valid_value", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "max_valid_value", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "upsample", "type": "", "description": "", "default" : "", "required" : false }
+            { "name": "min_level", "type": "int", "description": "Minimum terrain LOD at which to show this layer", "default" : "0", "required" : false },
+            { "name": "max_level", "type": "int", "description": "Maximum terrain LOD at which to show this layer", "default" : "19", "required" : false },
+            { "name": "min_resolution", "type": "float", "description": "Maximum resolution (in map units per pixel) at which to use this layer", "default" : "0.0", "required" : false },
+            { "name": "max_resolution", "type": "float", "description": "Minimum resolution (in map units per pixel) at which to use this layer", "default" : "unlimited", "required" : false },
+            { "name": "max_data_level", "type": "int", "description": "Maximum terrain LOD at which to keep generating new data for this layer", "default" : "", "required" : false },
+            { "name": "tile_size", "type": "int", "description": "Dimension (in both X and Y) of each terrain tile (in vertices)", "default" : "17", "required" : false },
+            { "name": "profile", "type": "custom", "description": "Tiling specification for this layer (see docs)", "default" : "derived from source", "required" : false },
+            { "name": "no_data_value", "type": "float", "description": "For elevation layers, special value that denotes the absence of data", "default" : "-32767", "required" : false },
+            { "name": "min_valid_value", "type": "float", "description": "Smallest value to use (ignore all smaller values); typically used with elevation data", "default" : "ignore", "required" : false },
+            { "name": "max_valid_value", "type": "float", "description": "Largest value to use (ignore all larger values); typically used with elevation data", "default" : "ignore", "required" : false },
+            { "name": "upsample", "type": "boolean", "description": "Whether to algorithmically generate higher-resolution data than what is available from the source, up to 'max_data_level'", "default" : "false", "required" : false }
        ],
        "inherits_from" : )%" + Layer::Options::getMetadata() + "}";
 }

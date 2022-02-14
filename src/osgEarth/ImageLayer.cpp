@@ -143,27 +143,27 @@ ImageLayer::Options::getConfig() const
 }
 
 std::string
-ImageLayer::Options::getMetadata()
+ImageLayer::Options::getMetadata() const
 {
     return R"%( {
         "name" : "ImageLayer",
         "description" : "Base class for layers that generate image tiles",
         "properties": [
-            { "name": "nodata_image", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "shared", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "coverage", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "altitude", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "accept_draping", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "edge_buffer_ratio", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "reprojected_tilesize", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "transparent_color", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "color_filters", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "mag_filter", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "min_filter", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "texture_compression", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "shared_sampler", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "shared_matrix", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "async", "type": "", "description": "", "default" : "", "required" : false }
+            { "name": "nodata_image", "type": "URI", "description": "Location of an image that represents 'no data' in the data source", "default" : "", "required" : false },
+            { "name": "shared", "type": "boolean", "description": "Whether to make textures from this layer available to custom shader code", "default" : "false", "required" : false },
+            { "name": "coverage", "type": "boolean", "description": "Whether this layer contains discrete data values that should not be sibject to interpolation or compression", "default" : "", "required" : false },
+            { "name": "altitude", "type": "float", "description": "Meters above the ellipsoid at which to render this layer", "default" : "0.0", "required" : false },
+            { "name": "accept_draping", "type": "boolean", "description": "Whether draped feature data will render atop this layer", "default" : "true", "required" : false },
+            { "name": "edge_buffer_ratio", "type": "", "description": "deprecated", "default" : "", "required" : false },
+            { "name": "reprojected_tilesize", "type": "", "description": "deprecated", "default" : "", "required" : false },
+            { "name": "transparent_color", "type": "", "description": "todo", "default" : "", "required" : false },
+            { "name": "color_filters", "type": "", "description": "deprecated", "default" : "", "required" : false },
+            { "name": "mag_filter", "type": "enum", "description": "texture magnification filter", "default" : "LINEAR", "required" : false },
+            { "name": "min_filter", "type": "enum", "description": "texture minification filter", "default" : "LINEAR_MIPMAP_LINEAR", "required" : false },
+            { "name": "texture_compression", "type": "enum", "description": "Type of texture compression to use (none, auto, cpu, gpu)", "default" : "none", "required" : false },
+            { "name": "shared_sampler", "type": "string", "description": "When 'shared' is true, name of the sampler uniform visible in custom shader code", "default" : "", "required" : false },
+            { "name": "shared_matrix", "type": "string", "description": "When 'shared' is true, name of the sampler teture matrix uniform visible in custom shader code", "default" : "", "required" : false },
+            { "name": "async", "type": "boolean", "description": "Whether to load this layer's data in a background thread", "default" : "false", "required" : false }
        ],
        "inherits_from" : )%" + TileLayer::Options::getMetadata() + "}";
 }

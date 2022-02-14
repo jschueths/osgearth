@@ -1138,10 +1138,10 @@ TMSImageLayer::Options::fromConfig(const Config& conf)
     readFrom(conf);
 }
 
-Config
-TMSImageLayer::Options::getMetadata()
+std::string
+TMSImageLayer::Options::getMetadata() const
 {
-    Config r = Config::readJSON(R"%(
+    return R"%(
     {
         "name" : "TMS",
         "description" : "Tile Map Service (OGC) images",
@@ -1149,11 +1149,8 @@ TMSImageLayer::Options::getMetadata()
             { "name": "url", "type" : "string", "description" : "Location of the TMS repository", "default" : "" },
             { "name": "tms_type", "type" : "string", "description" : "Set to 'google' to invert the Y index", "default" : "" },
             { "name": "format", "type" : "string", "description" : "Image format to assume (e.g. jpeg, png)", "default" : "" }
-        ]
-    }
-    )%");
-    r.add("inherits_from", ImageLayer::Options::getMetadata());
-    return r;
+        ],
+       "inherits_from" : )%" + ImageLayer::Options::getMetadata() + "}";
 }
 
 //........................................................................

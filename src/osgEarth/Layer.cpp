@@ -99,25 +99,25 @@ Layer::Options::fromConfig(const Config& conf)
 }
 
 std::string
-Layer::Options::getMetadata()
+Layer::Options::getMetadata() const
 {
     return R"%(
     { 
         "name" : "Layer",
         "description" : "Base class for all layers",
         "properties": [
-            { "name": "name", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "open", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "cache_id", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "attribution", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "cache_policy", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "l2_cache_size", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "caching", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "shader_define", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "shader", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "terrain", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "proxy", "type": "", "description": "", "default" : "", "required" : false },
-            { "name": "osg_options", "type": "", "description": "", "default" : "", "required" : false }
+            { "name": "name", "type": "string", "description": "Readable name of the layer", "default" : "", "required" : false },
+            { "name": "open", "type": "boolean", "description": "Whether to automatically open this layer when it is added to a Map", "default" : "true", "required" : false },
+            { "name": "cache_id", "type": "string", "description": "Custom name for the cache location for this layer", "default" : "", "required" : false },
+            { "name": "attribution", "type": "string", "description": "Data attribution string for the application to display", "default" : "", "required" : false },
+            { "name": "cache_policy", "type": "custom", "description": "If and how to cache data from this layer (see docs)", "default" : "", "required" : false },
+            { "name": "l2_cache_size", "type": "int", "description": "Number of tiles held in the small L2 cache", "default" : "0", "required" : false },
+            { "name": "caching", "type": "boolean", "description": "Whether to cache data from this layer (if a cache is available)", "default" : "true", "required" : false },
+            { "name": "shader_define", "type": "string", "description": "Preprocessor define to activate in custom shader code", "default" : "", "required" : false },
+            { "name": "shader", "type": "string", "description": "Custom inline shader code to run on this layer", "default" : "", "required" : false },
+            { "name": "terrain", "type": "boolean", "description": "Whether to treat this layer as a terrain patch (supporting intersections)", "default" : "false", "required" : false },
+            { "name": "proxy", "type": "custom", "description": "Internet proxy server information (see docs)", "default" : "", "required" : false },
+            { "name": "osg_options", "type": "string", "description": "Options string to pass along to OpenSceneGraph file loaders", "default" : "", "required" : false }
        ]
     } )%";
 }
@@ -569,6 +569,12 @@ Layer::create(const ConfigOptions& options)
 
     rr.takeObject();
     return layer;
+}
+
+Layer*
+Layer::create(const std::string& slug)
+{
+    return create(ConfigOptions(Config(slug)));
 }
 
 const ConfigOptions&
