@@ -194,6 +194,7 @@ namespace osgEarth
             OE_OPTION(ProxySettings, proxySettings);
             OE_OPTION(std::string, osgOptionString);
             OE_OPTION(unsigned int, l2CacheSize);
+            static std::string getMetadata();
             virtual Config getConfig() const;
         private:
             void fromConfig(const Config& conf);

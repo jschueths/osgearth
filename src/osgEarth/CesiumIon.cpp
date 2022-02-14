@@ -95,9 +95,9 @@ Config
 CesiumIonImageLayer::Options::getConfig() const
 {
     Config conf = ImageLayer::Options::getConfig();
-            conf.set("server", _server);
-            conf.set("asset_id", _assetId);
-            conf.set("token", _token);
+    conf.set("server", _server);
+    conf.set("asset_id", _assetId);
+    conf.set("token", _token);
     return conf;
 }
 
@@ -110,15 +110,34 @@ CesiumIonImageLayer::Options::fromConfig(const Config& conf)
     conf.get("token", _token);
 }
 
-Config
+std::string
 CesiumIonImageLayer::Options::getMetadata()
 {
-    return Config::readJSON( OE_MULTILINE(
-        { "name" : "CesiumIon Service",
-            "properties": [
-            ]
-        }
-    ) );
+    return R"%( {
+        "name": "CesiumIonImage",
+        "description": "Load image tiles from a Cesium Ion server",
+        "properties": [{
+		    "name": "server",
+		    "type": "URI",
+		    "description": "HTTP(s) address of the Cesium Ion server",
+		    "default": "",
+		    "required": true
+	    },
+	    {
+		    "name": "asset_id",
+		    "type": "string",
+		    "description": "Unique identifer of the Cesium asset",
+		    "default": "",
+		    "required": true
+	    },
+	    {
+		    "name": "token",
+		    "type": "string",
+		    "description": "Authentication token unique to your Cesium account",
+		    "default": "",
+		    "required": true
+        } ],
+        "inherits_from" : )%" + ImageLayer::Options::getMetadata() + "}";
 }
 
 //........................................................................

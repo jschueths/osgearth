@@ -1093,15 +1093,17 @@ TMS::Driver::resolveWriter(const std::string& format)
 Config
 TMS::Options::getMetadata()
 {
-    return Config::readJSON(OE_MULTILINE(
-      { "name" : "TMS (Tile Map Service)",
+    return Config::readJSON(R"%(
+    {
+        "name" : "TMS",
+        "description" : "Tile Map Service (OGC)",
         "properties" : [
-          { "name": "url", "description" : "Location of the TMS repository", "type" : "string", "default" : "" },
-          { "name": "tms_type", "description" : "Set to 'google' to invert the Y index", "type" : "string", "default" : "" },
-          { "name": "format", "description" : "Image format to assume (e.g. jpeg, png)", "type" : "string", "default" : "" }
+            { "name": "url", "description" : "Location of the TMS repository", "type" : "string", "default" : "" },
+            { "name": "tms_type", "description" : "Set to 'google' to invert the Y index", "type" : "string", "default" : "" },
+            { "name": "format", "description" : "Image format to assume (e.g. jpeg, png)", "type" : "string", "default" : "" }
         ]
-      }
-    ));
+    }
+    )%" );
 }
 
 void
@@ -1134,6 +1136,24 @@ void
 TMSImageLayer::Options::fromConfig(const Config& conf)
 {
     readFrom(conf);
+}
+
+Config
+TMSImageLayer::Options::getMetadata()
+{
+    Config r = Config::readJSON(R"%(
+    {
+        "name" : "TMS",
+        "description" : "Tile Map Service (OGC) images",
+        "properties" : [
+            { "name": "url", "type" : "string", "description" : "Location of the TMS repository", "default" : "" },
+            { "name": "tms_type", "type" : "string", "description" : "Set to 'google' to invert the Y index", "default" : "" },
+            { "name": "format", "type" : "string", "description" : "Image format to assume (e.g. jpeg, png)", "default" : "" }
+        ]
+    }
+    )%");
+    r.add("inherits_from", ImageLayer::Options::getMetadata());
+    return r;
 }
 
 //........................................................................

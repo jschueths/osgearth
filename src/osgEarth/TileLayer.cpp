@@ -75,6 +75,28 @@ TileLayer::Options::fromConfig(const Config& conf)
     conf.get("upsample", upsample());
 }
 
+std::string
+TileLayer::Options::getMetadata()
+{
+    return R"%( {
+        "name" : "TileLayer",
+        "description" : "Base class for layers that generate tiled data",
+        "properties": [
+            { "name": "min_level", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "max_level", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "min_resolution", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "max_resolution", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "max_data_level", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "tile_size", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "profile", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "no_data_value", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "min_valid_value", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "max_valid_value", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "upsample", "type": "", "description": "", "default" : "", "required" : false }
+       ],
+       "inherits_from" : )%" + Layer::Options::getMetadata() + "}";
+}
+
 //------------------------------------------------------------------------
 
 TileLayer::CacheBinMetadata::CacheBinMetadata() :

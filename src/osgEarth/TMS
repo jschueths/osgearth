@@ -539,6 +539,7 @@ namespace osgEarth
         class OSGEARTH_EXPORT Options : public ImageLayer::Options, public TMS::Options {
         public:
             META_LayerOptions(osgEarth, Options, ImageLayer::Options);
+            static Config getMetadata();
             virtual Config getConfig() const;
         private:
             void fromConfig(const Config& conf);

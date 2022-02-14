@@ -98,6 +98,30 @@ Layer::Options::fromConfig(const Config& conf)
     conf.get("osg_options", osgOptionString());
 }
 
+std::string
+Layer::Options::getMetadata()
+{
+    return R"%(
+    { 
+        "name" : "Layer",
+        "description" : "Base class for all layers",
+        "properties": [
+            { "name": "name", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "open", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "cache_id", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "attribution", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "cache_policy", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "l2_cache_size", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "caching", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "shader_define", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "shader", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "terrain", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "proxy", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "osg_options", "type": "", "description": "", "default" : "", "required" : false }
+       ]
+    } )%";
+}
+
 //.................................................................
 
 void

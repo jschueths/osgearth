@@ -58,7 +58,7 @@ namespace osgEarth
             OE_OPTION(URI, server);
             OE_OPTION(std::string, assetId);
             OE_OPTION(std::string, token);
-            static Config getMetadata();
+            static std::string getMetadata();
             virtual Config getConfig() const;
         private:
             void fromConfig(const Config& conf);

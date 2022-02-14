@@ -59,6 +59,7 @@ namespace osgEarth
             OE_OPTION(float, maxValidValue);
             OE_OPTION(bool, upsample);
             OE_OPTION(ProfileOptions, profile);
+            static std::string getMetadata();
             virtual Config getConfig() const;
         private:
             void fromConfig( const Config& conf );

@@ -142,6 +142,32 @@ ImageLayer::Options::getConfig() const
     return conf;
 }
 
+std::string
+ImageLayer::Options::getMetadata()
+{
+    return R"%( {
+        "name" : "ImageLayer",
+        "description" : "Base class for layers that generate image tiles",
+        "properties": [
+            { "name": "nodata_image", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "shared", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "coverage", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "altitude", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "accept_draping", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "edge_buffer_ratio", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "reprojected_tilesize", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "transparent_color", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "color_filters", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "mag_filter", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "min_filter", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "texture_compression", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "shared_sampler", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "shared_matrix", "type": "", "description": "", "default" : "", "required" : false },
+            { "name": "async", "type": "", "description": "", "default" : "", "required" : false }
+       ],
+       "inherits_from" : )%" + TileLayer::Options::getMetadata() + "}";
+}
+
 //------------------------------------------------------------------------
 
 void
